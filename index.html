@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Layout with Tailwind CSS</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <style>
+        .highlighted {
+            background-color: #f3f4f6; /* Tailwind's bg-gray-100 */
+        }
+    </style>
+</head>
+<body class="bg-white">
+    <div class="py-14">
+        <div class="max-w-7xl mx-auto px-8">
+            <div class="flex flex-col md:flex-row-reverse md:items-center gap-x-10 gap-y-20">
+                <!-- Text Content -->
+                <div class="md:w-2/5 pr-4 pt-4">
+                    <div>
+                        <h2 class="text-blue-500 text-lg font-extrabold">SMOOTHLY EXTEND</h2>
+                        <p class="text-gray-900 text-4xl font-bold mb-4">Extend or Integrate with your favourite tools</p>
+                        <p class="text-gray-600 text-lg mb-6">Easily connect your favorite tools with Plane and extend their functionality to streamline your workflow and unlock endless possibilities.</p>
+                        <div class="text-gray-600">
+                            <!-- Section 1 -->
+                            <div id="section1" class="cursor-pointer flex items-center rounded-lg gap-3 p-3 highlighted" onclick="changeContent('sdk', 'section1')">
+                                <!-- SVG and Text for SDK -->
+                                <!-- ... (SVG code) ... -->
+                                <div class="flex-grow">
+                                    <div class="font-extrabold">SDK (Coming soon).</div>
+                                    Plane's SDK (Pilot) can easily connect to any APIs giving you power to extend and integrate with tools you use everyday.
+                                </div>
+                            </div>
+                            <!-- Section 2 -->
+                            <div id="section2" class="cursor-pointer flex items-center rounded-lg gap-3 p-3" onclick="changeContent('notifications', 'section2')">
+                                <!-- SVG and Text for Better Notifications -->
+                                <!-- ... (SVG code) ... -->
+                                <div class="flex-grow">
+                                    <div class="font-extrabold">Better Notifications</div>
+                                    Integrate with tools like Slack to get notifications when issues are updated by team members.
+                                </div>
+                            </div>
+                            <!-- Section 3 -->
+                            <div id="section3" class="cursor-pointer flex items-center rounded-lg gap-3 p-3" onclick="changeContent('sync', 'section3')">
+                                <!-- SVG and Text for Sync with Code -->
+                                <!-- ... (SVG code) ... -->
+                                <div class="flex-grow">
+                                    <div class="font-extrabold">Sync with Code.</div>
+                                    Connect Plane with GitHub for seamless cross-sync of issues, improving visibility and collaboration across platforms.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Image Placeholder -->
+                <div class="md:w-3/5 flex justify-center items-center">
+                    <img id="dynamicImage" src="https://plane-marketing.s3.ap-south-1.amazonaws.com/plane-assets/features/sdk.webp" class="max-w-full h-auto" />
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const sections = ['sdk', 'notifications', 'sync'];
+        const images = {
+            'sdk': 'https://content.app-sources.com/s/00551309621827894/uploads/Images/image_31-5094810.png',
+            'notifications': 'https://content.app-sources.com/s/00551309621827894/uploads/Images/image_32-5094810.png',
+            'sync': 'https://content.app-sources.com/s/00551309621827894/uploads/Images/image_33-5094811.png'
+        };
+        let currentIndex = 0;
+
+        function changeContent(section, sectionId) {
+            // Change image
+            const imageElement = document.getElementById('dynamicImage');
+            imageElement.src = images[section];
+
+            // Highlight selected section
+            document.querySelectorAll('.flex.items-center').forEach(el => {
+                el.classList.remove('highlighted');
+            });
+            document.getElementById(sectionId).classList.add('highlighted');
+        }
+
+        function rotateSections() {
+            currentIndex = (currentIndex + 1) % sections.length;
+            changeContent(sections[currentIndex], `section${currentIndex + 1}`);
+        }
+
+        // Rotate sections every 3 seconds
+        setInterval(rotateSections, 3000);
+
+        // Initialize first section
+        changeContent('sdk', 'section1');
+    </script>
+</body>
+</html>
